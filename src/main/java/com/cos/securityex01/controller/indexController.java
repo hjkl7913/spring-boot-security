@@ -3,6 +3,8 @@ package com.cos.securityex01.controller;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -36,9 +38,18 @@ public class indexController {
 		return "유저 페이지입니다.";
 	}
 	
-	@GetMapping("/admin")
+	@	GetMapping("/admin")
 	public @ResponseBody String admin() {
-		return "어드민 페이지입니다.";
+	return "어드민 페이지입니다.";
+	}
+	
+	
+	//@PostAuthorize("hasRole('ROLE_MANAGER')")
+	//@PreAuthorize("hasRole('ROLE_MANAGER')")
+	@Secured("ROLE_MANAGER")
+	@	GetMapping("/manager")
+	public @ResponseBody String manager() {
+	return "매니저 페이지입니다.";
 	}
 	
 	@GetMapping("/login")
